@@ -1,0 +1,4 @@
+.idea/*
+*.iml
+sample_python_rest/__pycache__/*.pyc
+sample_python_rest/*.pyc
