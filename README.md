@@ -31,13 +31,31 @@ This should print out the following output. This indicates that the web server i
  * Debugger is active!
  * Debugger PIN: 630-421-997
 ```
-Now let's perform a curl request:
+### GET Hero
+Perform a GET curl request to get a hero:
 ```
-curl http://127.0.0.1:5000/Hero/Batman
+curl --request GET http://localhost:5000/Hero/Superman
 ```
 The expected (or similar) output should be:
 ```
-"Batman"
+"Superman"
+```
+If the hero does not exist (e.g. /Hero/Robin/), you will get the following output:
+```
+"Robin not found"
+```
+### POST Hero
+Perform a POST curl request to create a new hero:
+```
+curl --request POST http://localhost:5000/Hero/Joker
+```
+The expected (or similar) output should be:
+```
+"Joker has been added"
+```
+If you try to add it again, you will get the following output:
+```
+"Unable to add Joker as it already exists"
 ```
 
 ## Implementation Notes
@@ -54,4 +72,3 @@ Hero.py
 def get(self, get_name):
 ...
 ```
-* 
