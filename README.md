@@ -12,6 +12,10 @@ The relevant Flask Rest library needs to be installed for this API to work (run'
 ```
 pip3 install flask-restful
 ```
+You can use the default unittest framework that Python3 provides however to run the tests in pytests you will need to install it:
+```
+pip install pytests
+```
 
 ## Instructions
 From the root directory of the project, we firstly need to run the Flask web server:
@@ -56,6 +60,57 @@ The expected (or similar) output should be:
 If you try to add it again, you will get the following output:
 ```
 "Unable to add Joker as it already exists"
+```
+
+## Testing
+This project contains two tests. A passing and a failing one.
+Firstly, this project assumes that the application is already running. For that reason we first need to start the REST application:
+```
+python3 app.py
+```
+Once started, we can run all the tests using unittest:
+```
+python3 -m unittest discover
+```
+You should see an output similar to the below:
+```
+...
+FAIL: test_hero_fails (test.test_hero.TestHero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/mohammeduddin/Documents/GitProjects/msu/sample-python-rest/test/test_hero.py", line 12, in test_hero_fails
+    assert request_json_body == 'Batman'
+AssertionError
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.020s
+
+FAILED (failures=1)
+...
+```
+You can also use pytest to run the tests:
+```
+pytest
+```
+This should give a more meaningful output:
+```
+...
+test/test_hero.py .F                                                                                                           [100%]
+
+============================================================== FAILURES ==============================================================
+______________________________________________________ TestHero.test_hero_fails ______________________________________________________
+
+self = <test.test_hero.TestHero testMethod=test_hero_fails>
+
+    def test_hero_fails(self):
+        request_json_body = requests.get('http://localhost:5000/Hero/Robin').json()
+>       assert request_json_body == 'Batman'
+E       AssertionError: assert 'Robin not found' == 'Batman'
+E         - Robin not found
+E         + Batman
+
+test/test_hero.py:12: AssertionError
+...
 ```
 
 ## Implementation Notes
